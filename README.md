@@ -1,0 +1,1 @@
+# SproutAI-Intelligent-Soil-Recognition-Crop-Recommendation

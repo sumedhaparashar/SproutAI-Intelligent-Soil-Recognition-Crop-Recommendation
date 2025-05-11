@@ -1,0 +1,56 @@
+/* Custom styles to complement Bootstrap */
+
+/* Better spacing for main content */
+body {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+main {
+    flex: 1;
+}
+
+/* Image preview container */
+#imagePreview {
+    max-width: 100%;
+    margin: 0 auto;
+    text-align: center;
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+/* Custom card styling */
+.card {
+    border-radius: 10px;
+    overflow: hidden;
+    border: none;
+}
+
+.card-header {
+    border-bottom: none;
+}
+
+/* Custom button hover effect */
+.btn-primary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    transition: all 0.3s ease;
+}
+
+/* File input styling */
+.form-control[type="file"] {
+    padding: 0.75rem;
+}
+
+/* Logo styling */
+.navbar-brand {
+    font-weight: bold;
+    font-size: 1.4rem;
+}
+
+/* Footer styling */
+.footer {
+    background-color: var(--bs-dark);
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+}

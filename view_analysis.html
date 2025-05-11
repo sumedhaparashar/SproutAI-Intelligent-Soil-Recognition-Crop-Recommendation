@@ -1,0 +1,123 @@
+{% extends "layout.html" %}
+
+{% block content %}
+<div class="row">
+    <div class="col-lg-8 mx-auto">
+        <div class="d-flex justify-content-between align-items-center mb-4">
+            <h1 class="h3">
+                <i class="fas fa-search me-2"></i>Soil Analysis #{{ result.id }}
+            </h1>
+            <div>
+                <a href="{{ url_for('index') }}" class="btn btn-outline-primary me-2">
+                    <i class="fas fa-plus me-1"></i>New Analysis
+                </a>
+                <a href="{{ url_for('history') }}" class="btn btn-outline-secondary">
+                    <i class="fas fa-history me-1"></i>History
+                </a>
+            </div>
+        </div>
+
+        <div class="card shadow mb-4">
+            <div class="card-header bg-dark">
+                <div class="d-flex justify-content-between align-items-center">
+                    <h2 class="h5 mb-0 text-light">
+                        <i class="fas fa-info-circle me-2"></i>Analysis Details
+                    </h2>
+                    <span class="badge 
+                        {% if result.soil_type == 'Red soil' %}bg-danger{% endif %}
+                        {% if result.soil_type == 'Clay soil' %}bg-warning text-dark{% endif %}
+                        {% if result.soil_type == 'Black soil' %}bg-dark{% endif %}
+                        {% if result.soil_type == 'Alluvial soil' %}bg-success{% endif %}
+                    ">
+                        {{ result.soil_type }}
+                    </span>
+                </div>
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-6">
+                        <p><strong>Date:</strong> {{ result.created_at.strftime('%Y-%m-%d %H:%M') }}</p>
+                        <p><strong>Soil Type:</strong> {{ result.soil_type }}</p>
+                        <p><strong>Confidence:</strong> {{ "%.2f"|format(result.confidence) }}%</p>
+                    </div>
+                    <div class="col-md-6">
+                        <h3 class="h5">
+                            <i class="fas fa-leaf me-2"></i>Soil Characteristics:
+                        </h3>
+                        <p>
+                            {% if result.soil_type == 'Red soil' %}
+                            Reddish color due to iron oxide, porous and well-drained
+                            {% elif result.soil_type == 'Clay soil' %}
+                            Dense, heavy, retains water, slow draining
+                            {% elif result.soil_type == 'Black soil' %}
+                            Rich in organic matter, fertile, good water retention
+                            {% elif result.soil_type == 'Alluvial soil' %}
+                            Fertile soil deposited by water, excellent for crops
+                            {% endif %}
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="card shadow mb-4">
+            <div class="card-header bg-dark">
+                <h3 class="h5 mb-0">
+                    <i class="fas fa-seedling me-2"></i>Recommended Crops
+                </h3>
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    {% for crop in result.recommended_crops %}
+                    <div class="col-md-4 col-sm-6 mb-2">
+                        <div class="d-flex align-items-center">
+                            <i class="fas fa-check-circle text-success me-2"></i>
+                            <span>{{ crop }}</span>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+
+        <div class="card shadow">
+            <div class="card-header bg-dark">
+                <h3 class="h5 mb-0">
+                    <i class="fas fa-info-circle me-2"></i>Soil Care Tips
+                </h3>
+            </div>
+            <div class="card-body">
+                {% if result.soil_type == 'Red soil' %}
+                <ul>
+                    <li>Add organic matter to improve water retention</li>
+                    <li>Use mulch to reduce water evaporation</li>
+                    <li>Apply balanced fertilizers rich in nitrogen and phosphorus</li>
+                    <li>Consider drip irrigation for efficiency</li>
+                </ul>
+                {% elif result.soil_type == 'Clay soil' %}
+                <ul>
+                    <li>Add organic matter to improve drainage and structure</li>
+                    <li>Avoid compacting the soil by limiting foot traffic</li>
+                    <li>Avoid working the soil when it's too wet</li>
+                    <li>Consider raised beds for better drainage</li>
+                </ul>
+                {% elif result.soil_type == 'Black soil' %}
+                <ul>
+                    <li>Maintain organic matter through composting</li>
+                    <li>Monitor drainage during heavy rains</li>
+                    <li>Use crop rotation to maintain fertility</li>
+                    <li>Test for pH and nutrients regularly</li>
+                </ul>
+                {% elif result.soil_type == 'Alluvial soil' %}
+                <ul>
+                    <li>Maintain with regular addition of compost</li>
+                    <li>Use mulch to preserve moisture and prevent erosion</li>
+                    <li>Rotate crops to preserve soil health</li>
+                    <li>Test pH yearly to ensure optimal growing conditions</li>
+                </ul>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
